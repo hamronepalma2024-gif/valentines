@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Valentine ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --pink:#ff4d6d;
+    --soft:#ffd6e7;
+    --glass: rgba(255,255,255,.12);
+    --glass2: rgba(255,255,255,.18);
+  }
+
+  body{
+    margin:0;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:
+      radial-gradient(circle at 20% 15%, rgba(255,214,231,.28), transparent 45%),
+      radial-gradient(circle at 85% 25%, rgba(255,255,255,.12), transparent 42%),
+      linear-gradient(180deg, #061629 0%, #0b3b66 45%, #03101f 100%);
+    color:#fff;
+    overflow:hidden;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    padding:24px;
+  }
+
+  .card{
+    width:min(900px, 95vw);
+    text-align:center;
+    padding:34px 18px 26px;
+    border-radius:22px;
+    background: rgba(255,255,255,.10);
+    border: 1px solid rgba(255,255,255,.18);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 30px 80px rgba(0,0,0,.35);
+    position:relative;
+    z-index:2;
+  }
+
+  h1{
+    font-family:"Times New Roman", Times, serif;
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
+    margin:0 0 6px;
+    letter-spacing:.6px;
+  }
+
+  .name{
+    font-family:'Great Vibes', cursive;
+    font-size: clamp(3.1rem, 5vw, 4.6rem);
+    color: var(--soft);
+    margin:0 0 10px;
+    text-shadow: 0 18px 55px rgba(0,0,0,.45);
+  }
+
+  .btnRow{ position:relative; height:92px; margin-top:10px; }
+
+  button{
+    padding:14px 30px;
+    border:none;
+    border-radius:999px;
+    font-size:1.15rem;
+    font-weight:700;
+    cursor:pointer;
+    box-shadow:0 18px 34px rgba(0,0,0,.28);
+    user-select:none;
+  }
+
+  #yes{ background:var(--pink); color:#fff; }
+  #no{
+    background: rgba(255,255,255,.15);
+    color:#fff;
+    position:absolute;
+    left:50%;
+    top:50px;
+    transform: translateX(-50%);
+    border:1px solid rgba(255,255,255,.22);
+    transform-origin:center;
+  }
+
+  /* Overlay popup */
+  .overlay{
+    display:none;
+    position:fixed;
+    inset:0;
+    background: rgba(0,0,0,.65);
+    align-items:center;
+    justify-content:center;
+    padding:18px;
+    z-index:10;
+  }
+
+  .popup{
+    width:min(820px, 95vw);
+    border-radius:22px;
+    padding:18px;
+    background: var(--glass);
+    border:1px solid var(--glass2);
+    backdrop-filter: blur(14px);
+    box-shadow:0 40px 110px rgba(0,0,0,.50);
+    animation: pop .55s ease forwards;
+    position:relative;
+    overflow:hidden;
+  }
+
+  @keyframes pop{
+    from{ transform: translateY(14px) scale(.92); opacity:0; }
+    to{ transform: translateY(0) scale(1); opacity:1; }
+  }
+
+  .frame{
+    width:100%;
+    height:min(540px, 70vh);
+    border-radius:18px;
+    overflow:hidden;
+    background: rgba(255,255,255,.08);
+    box-shadow:0 26px 70px rgba(0,0,0,.45);
+    position:relative;
+  }
+
+  /* Cinematic zoom effect */
+  .frame img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+    transform: scale(1.05);
+    animation: cinematicZoom 10s ease-in-out infinite alternate;
+    filter: contrast(1.05) saturate(1.12);
+  }
+
+  @keyframes cinematicZoom{
+    0%{ transform: scale(1.05) translateY(0px); }
+    100%{ transform: scale(1.16) translateY(-8px); }
+  }
+
+  /* Glowing overlay text on image */
+  .glowName{
+    position:absolute;
+    left:14px;
+    bottom:14px;
+    padding:10px 14px;
+    border-radius:16px;
+    background: rgba(0,0,0,.28);
+    border: 1px solid rgba(255,255,255,.18);
+    backdrop-filter: blur(10px);
+    font-family:'Great Vibes', cursive;
+    font-size:2.3rem;
+    color:#fff;
+    text-shadow:
+      0 0 10px rgba(255,214,231,.65),
+      0 0 22px rgba(255,77,109,.45),
+      0 18px 40px rgba(0,0,0,.55);
+  }
+
+  .emojiLine{
+    font-size:2rem;
+    margin:14px 0 8px;
+    text-align:center;
+  }
+
+  .quote{
+    margin-top:10px;
+    color:#ffe9f2;
+    font-family:'Cormorant Garamond', serif;
+    font-size: clamp(1.15rem, 2.2vw, 1.55rem);
+    line-height:1.45;
+    text-align:center;
+  }
+
+  .quote b{ color:#fff; }
+
+  /* Rose petals */
+  .petal{
+    position:fixed;
+    top:-30px;
+    z-index:9;
+    pointer-events:none;
+    filter: drop-shadow(0 10px 10px rgba(0,0,0,.25));
+    animation: fall linear forwards;
+  }
+
+  @keyframes fall{
+    0%   { transform: translateY(-20px) translateX(0) rotate(0deg); opacity:0; }
+    10%  { opacity:1; }
+    100% { transform: translateY(110vh) translateX(var(--drift)) rotate(var(--rot)); opacity:0; }
+  }
+
+  /* small hint */
+  .hint{
+    margin-top:8px;
+    opacity:.9;
+    font-size:.95rem;
+  }
+</style>
+</head>
+
+<body>
+  <div class="card">
+    <h1>Will You Be My Valentine ❤️</h1>
+    <div class="name">PUJA</div>
+
+    <div class="btnRow">
+      <button id="yes">YES 😍😍</button>
+      <button id="no">NO 😢</button>
+    </div>
+
+    <div class="hint">After YES… a little surprise will pop up 🌹</div>
+  </div>
+
+  <div class="overlay" id="overlay">
+    <div class="popup" id="popup">
+      <div class="frame">
+        <!-- ✅ must be in the same folder as valentine.html -->
+        <img src="IMG_1089.JPG" alt="Our photo">
+        <div class="glowName">PUJA ❤️</div>
+      </div>
+
+      <div class="emojiLine">🌹💖🌹</div>
+
+      <div class="quote">
+        There are no words in English to explain how much you mean to me.
+        But there is a word in Arabic that describes it perfectly.
+        <br><br>
+        <b>tu'burni (Arabic):</b>
+        I love you so much that I wish I would die before you,
+        so I'd never have to live with the pain of losing you.
+      </div>
+    </div>
+  </div>
+
+<script>
+  // -------------------------
+  // NO escapes + shrinks
+  // -------------------------
+  const noBtn = document.getElementById("no");
+  let noScale = 1;
+  ["mouseover","mousemove","mousedown","touchstart","click"].forEach(ev =>
+    noBtn.addEventListener(ev, () => {
+      noScale = Math.max(0.50, noScale - 0.08);
+      const pad = 14;
+      const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - pad*2) + pad;
+      const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - pad*2) + pad;
+      noBtn.style.left = x + "px";
+      noBtn.style.top  = y + "px";
+      noBtn.style.transform = `translateX(0) scale(${noScale})`;
+      noBtn.style.filter = `blur(${(1-noScale)*3.2}px)`;
+    }, {passive:true})
+  );
+
+  // -------------------------
+  // YES shows popup and starts petals
+  // -------------------------
+  const yesBtn = document.getElementById("yes");
+  const overlay = document.getElementById("overlay");
+  let petalsOn = false;
+  let petalTimer = null;
+
+  yesBtn.addEventListener("click", () => {
+    overlay.style.display = "flex";
+    startPetals();
+  });
+
+  overlay.addEventListener("click", (e) => {
+    if (e.target === overlay){
+      overlay.style.display = "none";
+      stopPetals();
+    }
+  });
+
+  // -------------------------
+  // Rose petals generator
+  // -------------------------
+  const petalEmojis = ["🌹","🌸","🥀"]; // rose + soft petals
+  function spawnPetal(){
+    const p = document.createElement("div");
+    p.className = "petal";
+    p.textContent = petalEmojis[Math.floor(Math.random()*petalEmojis.length)];
+
+    const x = Math.random() * window.innerWidth;
+    const size = Math.random()*18 + 16;          // px
+    const drift = (Math.random()*220 - 110) + "px";
+    const rot = (Math.random()*540 - 270) + "deg";
+    const dur = (Math.random()*2.8 + 4.2).toFixed(2) + "s";
+
+    p.style.left = x + "px";
+    p.style.fontSize = size + "px";
+    p.style.setProperty("--drift", drift);
+    p.style.setProperty("--rot", rot);
+    p.style.animationDuration = dur;
+
+    document.body.appendChild(p);
+    setTimeout(() => p.remove(), 8000);
+  }
+
+  function startPetals(){
+    if (petalsOn) return;
+    petalsOn = true;
+    // a little denser inside the romantic moment
+    petalTimer = setInterval(spawnPetal, 220);
+  }
+
+  function stopPetals(){
+    petalsOn = false;
+    if (petalTimer) clearInterval(petalTimer);
+    petalTimer = null;
+  }
+</script>
+
+</body>
+</html>
